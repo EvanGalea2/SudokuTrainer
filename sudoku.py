@@ -4,6 +4,7 @@ class sudoku:
 	def __init__(self):
 		self.objectNum = 0
 		self.numGrid = []
+		self.referenceBoxes = []
 		#blankChar = ' '
 		print("e")
 		for i in range(0, 9):
@@ -54,12 +55,25 @@ class sudoku:
 			minY = 5
 		maxY = minY + 2
 		#Now check to ensure
-		
+
+	#this function builds a reference grid so that checking to see
+	#if a move satisfies legal requirements for its box is more efficient
+	def buildReferenceBox(self):
+		self.referenceBoxes = []#reset reference boxes array
+		for i in range(0, 3):
+			for j in range(0, 3):
+				for a in range(x, x+3):
+					for b in range(y, y+3):
+						newBox.append(self.numGrid[a][b])
+				self.referenceBoxes.append(newBox)
 		
 	
 	
 	
 s = sudoku()
 print(s.numGrid)
+print("/n")
+s.buildReferenceBox()
+print(s.referenceBoxes)
 #s.printGrid()
 print("end")
