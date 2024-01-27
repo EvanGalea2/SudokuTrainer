@@ -29,9 +29,20 @@ class sudoku:
 		return true
 	
 	def checkRow(self, rowNum):
-		print("wip")
+		checkArray = [0]*9
+		for num in self.numGrid[rowNum]:
+			checkArray[num] += 1
+			if checkArray[num] > 1: #if more than 1 of a number in a row
+				return false
+		return true
+		
 	def checkColumn(self, columnNum):
-		print("wip")
+		checkArray = [0]*9
+		for row in self.numGrid:
+			n = row[columnNum]
+			checkArray[n] += 1
+			if checkArray[num] > 1: #if more than 1 of a number in a column
+				return false
 	#This
 	def checkBox(self, rowNum, columnNum):
 		#first determine the bounds of the box
@@ -62,6 +73,10 @@ class sudoku:
 		self.referenceBoxes = []#reset reference boxes array
 		for i in range(0, 3):
 			for j in range(0, 3):
+				#build a box
+				x = i * 3
+				y = j * 3
+				newBox = []
 				for a in range(x, x+3):
 					for b in range(y, y+3):
 						newBox.append(self.numGrid[a][b])
@@ -75,5 +90,9 @@ print(s.numGrid)
 print("/n")
 s.buildReferenceBox()
 print(s.referenceBoxes)
+s.numGrid[5][5] = 999999
+print(s.referenceBoxes)
+s.referenceBoxes[3][3] = 77777
+print(s.numGrid)
 #s.printGrid()
 print("end")
