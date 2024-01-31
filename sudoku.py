@@ -1,4 +1,5 @@
 #this class represents a Sudoku object and functionality for it
+import csv
 
 class sudoku:
 	def __init__(self):
@@ -82,7 +83,12 @@ class sudoku:
 						newBox.append(self.numGrid[a][b])
 				self.referenceBoxes.append(newBox)
 		
-	
+	def readFromCSV(self, filePath):
+		with open(filePath, newline='\n') as csvfile:
+    			fileReader = csv.reader(csvfile, delimiter='.', quotechar='|')
+#    			name = fileReader.
+    			for row in fileReader:
+        			print(', '.join(row))
 	
 	
 s = sudoku()
@@ -95,4 +101,5 @@ print(s.referenceBoxes)
 s.referenceBoxes[3][3] = 77777
 print(s.numGrid)
 #s.printGrid()
+s.readFromCSV("bin/easySudoku.csv")
 print("end")
