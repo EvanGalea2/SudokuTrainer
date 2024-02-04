@@ -3,16 +3,16 @@ import csv
 
 class sudoku:
 	def __init__(self):
-		self.objectNum = 0
 		self.numGrid = []
 		self.referenceBoxes = []
 		#blankChar = ' '
 		print("e")
 		for i in range(0, 9):
 			row = []
+			objectNum = 1
 			for j in range (0, 9):
-				row.append(self.objectNum)
-				self.objectNum += 1
+				row.append(objectNum)
+				objectNum += 1
 			self.numGrid.append(row)
 
 	#helper method that prints grid to console
@@ -25,7 +25,7 @@ class sudoku:
 	#helper method that ensures each number occurs once
 	def checkArray(array):
 		for i in array:
-			if i != 1:
+			if i > 1:
 				return false
 		return true
 	
@@ -67,7 +67,11 @@ class sudoku:
 			minY = 5
 		maxY = minY + 2
 		#Now check to ensure
-
+		tempArray = [] #this is the array that will be checked
+		for i in range(minX, maxX+1):
+			for j in range(minY, maxY+1):
+				tempArray.append(self.numGrid[i][j])
+		
 	#this function builds a reference grid so that checking to see
 	#if a move satisfies legal requirements for its box is more efficient
 	def buildReferenceBox(self):
@@ -82,13 +86,34 @@ class sudoku:
 					for b in range(y, y+3):
 						newBox.append(self.numGrid[a][b])
 				self.referenceBoxes.append(newBox)
+
+	def buildGridFromList(self, data):
+		rowCounter = 0
+		columnCounter = 0
+		for num in data:
+			self.numGrid[rowCounter][columnCounter] = num
+			columnCounter += 1
+			if columnCounter > 8:
+				columnCounter = 0
+				rowCounter += 1
+		
 		
 	def readFromCSV(self, filePath):
 		with open(filePath, newline='\n') as csvfile:
     			fileReader = csv.reader(csvfile, delimiter='.', quotechar='|')
-#    			name = fileReader.
+    			#name = fileReader.readLine()
+    			#data = fileReader.readLine()
+    			firstLine = True
+    			data = []
     			for row in fileReader:
-        			print(', '.join(row))
+    				if firstLine:
+    					firstLine = False
+    				else:
+    					for num in row:
+    						data.append(num)
+					#print(', '.join(row))
+			buildGridFromList(self, data)
+		
 	
 	
 s = sudoku()
