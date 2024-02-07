@@ -44,6 +44,11 @@ class sudoku:
 			checkArray[n] += 1
 			if checkArray[num] > 1: #if more than 1 of a number in a column
 				return false
+				
+	def placeNumber(self, rowNum, columnNum, number):
+		if rowNum > 0 and rowNum < 9:
+			self.numGrid[rowNum][columnNum] = number
+
 	#This
 	def checkBox(self, rowNum, columnNum):
 		#first determine the bounds of the box
@@ -97,7 +102,6 @@ class sudoku:
 				columnCounter = 0
 				rowCounter += 1
 		
-		
 	def readFromCSV(self, filePath):
 		with open(filePath, newline='\n') as csvfile:
     			fileReader = csv.reader(csvfile, delimiter='.', quotechar='|')
@@ -110,10 +114,9 @@ class sudoku:
     					firstLine = False
     				else:
     					for num in row:
-    						data.append(num)
-					#print(', '.join(row))
-			buildGridFromList(self, data)
-		
+    						data.append(num) #print(', '.join(row))
+    			buildGridFromList(data)
+			#buildGridFromList(self, data)
 	
 	
 s = sudoku()
@@ -128,3 +131,16 @@ print(s.numGrid)
 #s.printGrid()
 s.readFromCSV("bin/easySudoku.csv")
 print("end")
+loop = True
+while loop:
+	print ("enter row, then column, them number, separated by a space, or q to quit")
+	try:
+		userInput = input()
+		if userInput.equals('q'):
+			loop = False
+		else:
+			inputData = userInput.split(' ')
+			print(inputData)
+	except:
+		print("error")	
+	
