@@ -1,4 +1,4 @@
-#this class represents a Sudoku object and functionality for it
+	#this class represents a Sudoku object and functionality for it
 import csv
 
 class sudoku:
@@ -44,10 +44,7 @@ class sudoku:
 			checkArray[n] += 1
 			if checkArray[num] > 1: #if more than 1 of a number in a column
 				return false
-				
-	def placeNumber(self, rowNum, columnNum, number):
-		if rowNum > 0 and rowNum < 9:
-			self.numGrid[rowNum][columnNum] = number
+	
 
 	#This
 	def checkBox(self, rowNum, columnNum):
@@ -76,6 +73,28 @@ class sudoku:
 		for i in range(minX, maxX+1):
 			for j in range(minY, maxY+1):
 				tempArray.append(self.numGrid[i][j])
+				
+	def checkWithinRange(self, min, max, number, name):
+		if number < min:
+			print(name + " is too small! Enter between " + min + " and " + max)
+			return false
+		elif number > max:
+			print(name + " is too big! Enter between " + min + " and " + max)
+			return false
+		return True
+			
+	#This function places a number on the grid if it is within range
+	def placeNumber(self, rowNum, columnNum, number):
+		if self.checkWithinRange(1, 9, rowNum, "row number"):
+			if self.checkWithinRange(1, 9, columnNum, "column number"):
+				if self.checkWithinRange(1, 9, rowNum, "box number"):
+					self.numGrid[rowNum][columnNum] = number
+				
+	#This function is called when a user enters a number, it
+	#calls the various validation checks and then places
+	#the number on the grid
+	def userEnterNumber(self, rowNum, columnNum, number):
+		self.placeNumber(rowNum, columnNum, number)
 		
 	#this function builds a reference grid so that checking to see
 	#if a move satisfies legal requirements for its box is more efficient
@@ -115,7 +134,7 @@ class sudoku:
     				else:
     					for num in row:
     						data.append(num) #print(', '.join(row))
-    			buildGridFromList(data)
+    			self.buildGridFromList(data)
 			#buildGridFromList(self, data)
 	
 	
@@ -136,11 +155,17 @@ while loop:
 	print ("enter row, then column, them number, separated by a space, or q to quit")
 	try:
 		userInput = input()
-		if userInput.equals('q'):
+		if userInput == 'q':
 			loop = False
+			sys.exit()
 		else:
 			inputData = userInput.split(' ')
 			print(inputData)
-	except:
-		print("error")	
+			s.userEnterNumber(int(inputData[0]), int(inputData[1]), int(inputData[2]))
+			print("/n/n/n")
+			print(s.numGrid)
+			#s.printGrid()
+			
+	except inputException:
+		print(inputException)	
 	
