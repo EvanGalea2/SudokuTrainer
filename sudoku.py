@@ -1,4 +1,4 @@
-	#this class represents a Sudoku object and functionality for it
+		#this class represents a Sudoku object and functionality for it
 import csv
 
 class sudoku:
@@ -76,10 +76,12 @@ class sudoku:
 				
 	def checkWithinRange(self, min, max, number, name):
 		if number < min:
-			print(name + " is too small! Enter between " + min + " and " + max)
+			print(name + " is too small! Enter between %d and %d" % (min, max))
+			#print(name + " is too small! Enter between " + min + " and " + max)
 			return false
 		elif number > max:
-			print(name + " is too big! Enter between " + min + " and " + max)
+			#print(name + " is too big! Enter between " + min + " and " + max)
+			print(name + " is too big! Enter between %d and %d" % (min, max))
 			return false
 		return True
 			
